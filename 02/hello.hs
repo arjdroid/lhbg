@@ -1,6 +1,18 @@
 main :: IO()
 main = putStrLn myhtml
 
+myhtml :: String
+myhtml =
+  makeHtml
+    "Hello title"
+    (h1_ "Hello, world!" <> p_ "Let's learn about Haskell!")
+
+makeHtml :: String -> String -> String
+makeHtml title content = html_ (head_ (title_ title) <> body_ content)
+
+newtype Html = Html String
+newtype Structure = Structure String
+
 html_ :: String -> String
 html_ = el "html"
 
@@ -20,11 +32,5 @@ h1_ :: String -> String
 h1_ = el "h1"
 
 el :: String -> (String -> String)
-el = \tag -> \content ->
+el tag content =
   "<" <> tag <> ">" <> content <> "</" <> tag <> ">"
-
-myhtml :: String
-myhtml = makeHtml "My page title" "My page header" "My page paragraph"
-
-makeHtml :: String -> String -> String -> String
-makeHtml title header content = html_ (head_ (title_ title) <> h1_ header <> p_ content)
