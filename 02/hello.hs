@@ -1,2 +1,3 @@
 main = putStrLn myhtml
-myhtml = "<html><body>Hello, world!</body></html>"
+wrapHtml content = "<html><body>" <> content <> "</body></html>"
+myhtml = wrapHtml "Hello, world!"
