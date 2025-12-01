@@ -1,10 +1,11 @@
 main :: IO()
-main = putStrLn myhtml
+main = putStrLn (render myhtml)
 
-myhtml :: String
+myhtml :: Html
 myhtml =
-  "Hello title"
-  (h1_ "Hello, world!" <> p_ "Let's learn about Haskell!")
+  html_
+    "Hello title" 
+    (append_ (h1_ "Hello, world!") (p_ "Let's learn about Haskell!"))
 
 newtype Html = Html String
 newtype Structure = Structure String
