@@ -39,8 +39,8 @@ el tag content =
   "<" <> tag <> ">" <> content <> "</" <> tag <> ">"
 
 append_ :: Structure -> Structure -> Structure
-append_ (Structure a) (Structure b) =
-  Structure (a <> b)
+append_ a b =
+  Structure (getStructureString a <> getStructureString b)
 
 render :: Html -> String
 render html =
@@ -48,7 +48,9 @@ render html =
     Html str -> str
 
 getStructureString :: Structure -> String
-getStructureString (Structure a) = a
+getStructureString content =
+  case content of
+    Structure str -> str
 
 escape :: String -> String
 escape =
@@ -59,7 +61,7 @@ escape =
         '>' -> "&gt;"
         '&' -> "&amp;"
         '"' -> "&quot;"
-        '\' -> "&#39;"
+        '\'' -> "&#39;"
         _ -> [c]
   in
     concat . map escapeChar
